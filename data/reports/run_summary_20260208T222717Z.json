@@ -1,0 +1,25 @@
+{
+  "run_started_utc": "2026-02-08T22:26:55+00:00",
+  "run_finished_utc": "2026-02-08T22:27:17+00:00",
+  "args": {
+    "start_year": 2025,
+    "end_year": 2025,
+    "coffee_codes": [
+      "0901"
+    ],
+    "hs_level": "HS4",
+    "output_root": "data"
+  },
+  "row_counts": {
+    "raw_rows": 2506,
+    "monthly_clean_rows": 2484,
+    "yearly_panel_rows": 243
+  },
+  "files": {
+    "raw": "data/raw/us_census_coffee_trade_raw.csv",
+    "monthly_clean": "data/processed/us_coffee_trade_monthly_clean.csv",
+    "yearly_panel": "data/processed/us_coffee_trade_yearly_panel.csv",
+    "missingness_by_column": "data/reports/missingness_by_column.csv",
+    "yearly_panel_coverage": "data/reports/yearly_panel_coverage.csv"
+  }
+}
