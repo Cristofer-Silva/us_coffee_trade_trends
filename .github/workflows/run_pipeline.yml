@@ -1,0 +1,40 @@
+name: Run Coffee Trade Pipeline
+
+on:
+  schedule:
+    - cron: '0 6 1 * *'   # Runs on the 1st of every month at 6am UTC
+  workflow_dispatch:        # Also allows manual "Run workflow" button
+
+jobs:
+  pipeline:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run pipeline
+        env:
+          CENSUS_API_KEY: ${{ secrets.CENSUS_API_KEY }}
+        run: |
+          python scripts/us_census_coffee_pipeline.py \
+            --start-year 2013 \
+            --end-year 2025 \
+            --coffee-codes 0901 \
+            --hs-level HS4 \
+            --output-root data
+
+      - name: Upload output as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: coffee-pipeline-output-${{ github.run_number }}
+          path: data/
+          retention-days: 90
